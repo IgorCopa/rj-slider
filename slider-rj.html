@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Slider</title>
+
+    <style>
+    
+    body, *{
+        padding: 0;
+        margin: 0;
+        background-color: rgb(138, 85, 235);
+    }
+
+    #slider{
+        width: 850px;
+        height: 800px;
+        background-color: rgba(0, 0, 0);
+        border: 1px solid rgba(255, 255, 255);
+        margin: 50px auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .btn{
+        background-color: rgba(0, 0, 0, .4);
+        border: none;
+        outline: none;
+        width: 30px;
+        height: 20%;
+        color: #fff;
+        margin: 10px;
+        cursor: pointer;
+    }
+
+    #barraLoad{
+        width: 100%;
+        height: 5px;
+        margin-top: 88%;
+        background-color: transparent;
+        border: 1px solid rgba(255, 255, 255, .3);
+    }
+
+    #load{
+        background-color: #999;
+        width: 0%;
+        height: 100%;
+    }
+
+    </style>
+
+</head>
+<body>
+
+    <div id="slider">
+        <button class="btn" id="back" onclick="changePictures(-1)"><</button>
+        <div id="barraLoad">
+            <div id="load"></div>
+        </div>  
+        <button class="btn" id="forward" onclick="changePictures(1)">></button>
+    </div>
+
+    <script>
+    
+    /* let imgs = [];
+    let slider;
+    let beginImg;
+    let maxImg;
+    let tmp;
+
+    const begin = () => {
+        preLoad();
+        beginImg = 0;
+        maxImg = imgs.length-1;
+        slider = document.getElementById('slider'); // forgot this one
+        loadImage(beginImg);
+        let changeTime = 3000;
+        tmp = setInterval(changeImages, changeTime);
+    } */
+
+    /* A função abaixo busca a imagem no servidor e deixa no Array antes
+    do site carregar, para o slide não ficar sem imagem. */
+    //const preLoad = () => {
+     /*    let f = 1;
+        for(let i = 0; i<5; i++){
+            imgs[i] = new Image(); //forgot about this one.
+            imgs[i].src = `images/photo-${f}.jpg`;
+            f++;
+        }
+    } */
+
+    /* This function loads the image in the div, which means that it loads
+    the div on the server since the div is the HTML that is on the page. */
+    /* const loadImage = (img) => {
+        slider.style.backgroundImage=`url(${imgs[img].src})`;
+        slider.style.backgroundRepeat='no-repeat';
+        slider.style.backgroundPosition='center';
+        slider.style.backgroundTransition='.5s';
+        /* slider, not imgs[img] & it's url(), not image/...*/
+    //}
+ 
+    /* This function below, is responsible change images; everytime the 
+     */
+    /* const changeImages = () => {
+        beginImg++;
+        if(beginImg>maxImg){
+            beginImg=0;
+        }
+        loadImage(beginImg);
+    }
+
+    window.addEventListener('load', begin); */
+    
+    /* let images = [];
+    images.length=5;
+    let slider;
+    let firstImageIndice;
+    let totalImagesIndice;
+    let timeInterval;
+    let time;
+    let timy;
+    let loady;
+
+    const preLoadingSlideImages = () => {
+        let p = 1;
+        for(let i=0; i<images.length; i++){
+            images[i] = new Image();
+            images[i].src = `images/photo-${p}.jpg`;
+            p++;
+        }
+    }
+
+    const loadingSlideImages = (pictureNumber) => {
+        slider.style.backgroundImage=`url(${images[pictureNumber].src})`;
+        slider.style.backgroundRepeat='no-repeat';
+        slider.style.backgroundPosition='center';
+    }
+
+    const begin = () => {
+        preLoadingSlideImages();
+        slider = document.getElementById('slider');
+        loady = document.getElementById('load');
+        totalImagesIndice = images.length-1;
+        firstImageIndice = 0;
+        loadingSlideImages(firstImageIndice);
+        timeInterval = 0;
+        animation();
+    }
+
+    const changeImageSlide = (direction) => {
+        timeInterval = 0;
+        firstImageIndice+=direction;
+        if(firstImageIndice>4){
+            firstImageIndice=0;
+        }else if(firstImageIndice<0){
+            firstImageIndice=totalImagesIndice;
+        }
+        loadingSlideImages(firstImageIndice);
+    }
+
+    const animation = () => {
+        timeInterval++;
+        if(timeInterval >= 300){
+            timeInterval = 0;
+            changeImageSlide(1);
+        }
+        timy = timeInterval/3;
+        loady.style.width=`${timy}%`;
+        window.requestAnimationFrame(animation);
+    }
+
+    window.addEventListener("load", begin); */
+    
+    /*
+    let imagens = [];
+    let slide;
+    let imgInicial;
+    let imgsTotal;
+    let tempoTroca;
+    let tempo;
+    let loady;
+
+    const preCarregamento = () => {
+        let pic = 1;
+        for(let i=0; i<5; i++){
+            imagens[i] = new Image();
+            imagens[i].src = `images/photo-${pic}.jpg`;
+            pic++;
+        }
+    }
+
+    const carregamento = (picture) => {
+        slide.style.backgroundImage=`url(${imagens[picture].src})`;
+        slide.style.backgroundRepeat=`no-repeat`;
+        slide.style.backgroundPosition=`center`;
+        slide.style.transition='.5s';
+    }
+
+    const iniciarSlide = () => {
+        preCarregamento();
+        slide = document.getElementById('slider');
+        loady = document.getElementById('load');
+        imgInicial = 0;
+        imgsTotal = imagens.length-1;
+        carregamento(imgInicial); // bind the indice 'i' to an outer variable
+        tempoTroca = 0;
+        animation();
+    }
+
+    const mudarImagens = (direcao) => {
+        tempoTroca = 0;
+        imgInicial+=direcao;
+        if(imgInicial>4){
+            imgInicial=0;
+        }else if(imgInicial<0){
+            imgInicial=imgsTotal;
+        }
+        carregamento(imgInicial);
+    }
+
+    const animation = () => {
+        tempoTroca++;
+        if(tempoTroca >= 200){
+            tempoTroca=0;
+            mudarImagens(1);
+        }
+        tempo=tempoTroca/2;
+        loady.style.width=`${tempo}%`;
+        window.requestAnimationFrame(animation);
+    }
+
+    window.addEventListener("load", iniciarSlide);
+    */
+
+    /* let images = [];
+    images.length = 5;
+    let slider;
+    let imgIndex;
+    let maxImgs;
+    let time;
+
+    const preLoading = () => {//Pre load an image from PC to an Array 1st.
+        let p = 1; */ /* control the last caracter of the name of the pictures
+        with a variable so that it is easy to change the picture that is
+        going to be in that variable. */
+        /* for(let i=0; i<5; i++){
+            images[i] = new Image();
+            images[i].src = `images/photo-${p}.jpg`;
+            p++;
+        }
+    } */
+
+    /* const loading = (img) => {//Load images from the array to the div(server).
+        slider.style.backgroundImage=`url(${images[img].src})`; *//* This
+        allows you to access the index from outside of the loop, and even
+        from outside of its function. */
+        /* slider.style.backgroundRepeat=`no-repeat`;
+        slider.style.backgroundPosition=`center`;
+    } */
+
+    /* const begin = () => {
+        preLoading();
+        slider = document.getElementById('slider');
+        imgIndex = 0; */ /* [line below]...cause imgIndex goes from 0-4(5 items).
+        NOTE: since it's gonna change, it'll be updated in the loading(),
+        which means that the functions that updates its value, is
+        responsible to call loading() with its parameter already updated. */
+        /* maxImgs = images.length-1;//it needs to be 4 instead of 5...
+        loading(imgIndex) */ /* instead of puting a number as parameter, put a
+        variable that holds the number, always think about managing values
+        with variables */
+        /* let changingTime = 2000;//same thing here (variables to manage).
+        time = setInterval(changePictures, changingTime);
+    } */
+
+    /* const changePictures = () => {
+        imgIndex++;
+        if(imgIndex>maxImgs){
+            imgIndex=0;
+        }
+        loading(imgIndex); */ /* This function also needs to call loading with
+        the updated imgIndex. OBS: forgot this one. */
+    /* }
+
+    window.addEventListener("load", begin); */
+
+//__________________________________________________________________
+
+    let images = [];
+    images.length = 5;
+    let slider;
+    let imgIndex;
+    let maxImgs;
+    let time;
+    let timeToChangePic;//a variable to control the time the load bar will take.
+    let loadBarAdvancing;//and a variable for the load bar on itself.
+
+    const preLoading = () => {
+        let p = 1;
+        for(let i=0; i<5; i++){
+            images[i] = new Image();
+            images[i].src = `images/photo-${p}.jpg`;
+            p++;
+        }
+    }
+
+    const loading = (img) => {
+        slider.style.backgroundImage=`url('${images[img].src}')`;
+        slider.style.backgroundRepeat='no-repeat';
+        slider.style.backgroundPosition='center';
+    }
+
+    const begin = () => {
+        preLoading();
+        slider = document.getElementById('slider');
+        loadBarAdvancing = document.getElementById('load');
+        imgIndex = 0;
+        maxImgs = images.length-1;
+        loading(imgIndex);
+        changingTime = 0;/* We need to use it as an 'index' for an
+        animation in the loady() function. */
+        loady();
+    }
+
+    const changePictures = (dir) => {
+        changingTime = 0;/* This one is needed so that it will restart
+        every time this function is called by loady() function. */
+        imgIndex+=dir;/*  if dir is positive, change to the next one, if is
+        negative, change to the previous one. */
+        if(imgIndex>maxImgs){/* Cause you need to make sure it's not gonna
+        be over the maximum number of pics, so that it'll go back to the
+        first one. */
+            imgIndex=0;
+        }else if(imgIndex<0){/* cause you need to make sure that it's not
+        gonna be a number that won't make a change like less than 0.
+        So it needs to go back to the last image.*/
+            imgIndex=maxImgs;
+        }
+        loading(imgIndex);/* OBS: forgot this one. */
+    }
+
+    const loady = () => {
+        changingTime++;//it counts every time it calls itself.
+        if(changingTime >= 300){/* 300 is just a number to create a
+        a lifetime perspective for the load bar.
+        Ex: an hour has 60 min, a min has 60 seconds(time perpective). */
+            changingTime = 0; /* When the load bar gets to 300, it will
+            restart from zero... */
+            changePictures(1);//...and move automatically to the next pic.
+        }
+        timeToChangePic = changingTime/3;//divede by 3 to make a perfect percentage
+        loadBarAdvancing.style.width=`${timeToChangePic}%`;
+        window.requestAnimationFrame(loady);
+    }
+
+    window.addEventListener("load", begin);
+
+    </script>
+
+</body>
+</html>
